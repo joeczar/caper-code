@@ -1,0 +1,139 @@
+html,
+body {
+    padding: 0px;
+    font-family: Georgia, Times, Times New Roman, serif;
+    margin: 0px;
+}
+main div {
+    margin: -10px 0px;
+}
+header {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    position: relative;
+    height: 50px;
+    margin: 0px;
+}
+.content,
+footer {
+    font-size: 18px;
+    padding: 1em;
+}
+
+#logo {
+    height: 50px;
+    position: absolute;
+    top: 10px;
+}
+#hamburger {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.hamburgerLayers {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 8px 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.hero-image {
+    background: url(assets/spices.jpg) no-repeat center center;
+    position: relative;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 47vw;
+    margin: 0px;
+}
+.darker {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+#welcomeBtn {
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 400px;
+    height: 100px;
+    margin: auto;
+}
+#welcomeBtn h1 {
+    margin: auto;
+}
+#welcomeBtn #getStarted {
+    background-color: #ffcc33;
+    color: #cc6600;
+    height: 2.5em;
+    width: 8em;
+    border: 0.3rem solid #cc6600;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    margin: auto;
+    font-family: Georgia, Times, Times New Roman, serif;
+}
+.content {
+    background-color: darkgrey;
+    margin: 0px;
+}
+.content ul {
+    list-style: none;
+    padding-left: 0;
+    display: inline-block;
+    max-width: 960;
+    text-align: center;
+}
+#info li {
+    position: relative;
+    padding-left: 50px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: inline-block;
+    max-width: 480px;
+    text-align: left;
+}
+#info b {
+    margin: 0px;
+}
+#info p {
+    margin: 0px;
+}
+#info li:before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-size: contain;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#cat:before {
+    background: url('assets/cat.svg') no-repeat center center;
+}
+#globe:before {
+    background: url('assets/world.svg') no-repeat center center;
+}
+#swimmer:before {
+    background: url('assets/swim.svg') no-repeat center center;
+}
+#columns:before {
+    background: url('assets/columns.svg') no-repeat center center;
+}
+footer {
+    background-color: dimgrey;
+    color: white;
+}
