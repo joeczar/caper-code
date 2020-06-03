@@ -76,13 +76,14 @@ footer {
     background-color: #ffcc33;
     color: #cc6600;
     height: 2.5em;
-    width: 8em;
+    width: 9em;
     border: 0.3rem solid #cc6600;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
     margin: auto;
     font-family: Georgia, Times, Times New Roman, serif;
+    font-size: larger;
 }
 .content {
     background-color: darkgrey;
@@ -92,7 +93,7 @@ footer {
     list-style: none;
     padding-left: 0;
     display: inline-block;
-    max-width: 960;
+    
     text-align: center;
 }
 #info li {
@@ -136,4 +137,5 @@ footer {
 footer {
     background-color: dimgrey;
     color: white;
+    font-size: 12px;
 }
