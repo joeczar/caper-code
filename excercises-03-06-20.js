@@ -15,7 +15,7 @@ function logType(input) {
         log(type);
     }
      else {
-        log('I have no idea');
+        log('I have no ideas');
     }
 }
 console.log(
