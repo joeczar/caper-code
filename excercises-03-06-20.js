@@ -25,7 +25,7 @@ function logType(input) {
         log('array');
     } else if (type === 'object') {
         log(type);
-    } else if (type === 'symbol') {
+    } else {
         log('I have no idea');
     }
 }
