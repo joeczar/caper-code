@@ -1,6 +1,6 @@
 function logType(input) {
     var type = typeof input;
-
+    var typeArr = ['number', 'string', 'boolean', 'bigint', 'object'];
     function log(data) {
         console.log('"' + data + '!' + '"');
     }
@@ -11,26 +11,21 @@ function logType(input) {
         log(input);
     } else if (Number.isNaN(input)) {
         log(input);
-    } else if (type === 'number') {
+    } else if (typeArr.includes(type)) {
         log(type);
-    } else if (type === 'string') {
-        log(type);
-    } else if (type === 'boolean') {
-        log(type);
-    } else if (type === 'bigint') {
-        log(type);
-    } else if (type === 'function') {
-        log(type);
-    } else if (Array.isArray(input)) {
-        log('array');
-    } else if (type === 'object') {
-        log(type);
-    } else {
+    }
+     else {
         log('I have no idea');
     }
 }
+console.log(
+    logType(),
+    logType(10),
+    logType('string'),
+    logType(NaN),
+    logType(Symbol('💩'))
+);
 
-logType();
 
 var a = {
     Berlin: 'Germany',
