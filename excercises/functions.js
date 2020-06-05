@@ -31,18 +31,18 @@ waitThenRun(function () {
 
 // Write a function that expects a number as an argument. If the value that is passed in is less than 0, equal to 0, or not a number, the function should return the string 'ERROR'. If the number that is passed in is greater than or equal to 1000000 it should simply return the number. Otherwise it should multiply the number by 10 however many times it takes to get a number that is greater than or equal to 1000000 and return that.
 function millions(num) {
-    if (num <= 0) {
-        return 'ERROR'
-    }else if (num >= 1000000) {
+    if (num <= 0 || Number.isNaN(num)) {
+        return 'ERROR';
+    } else if (num >= 1000000) {
         return num;
     } else {
-        while (num < 1000000) {
-            num = num * 10;
-        }
-        return num;
+        // while (num < 1000000) {
+        //     num = num * 10;
+        // }
+        return millions(num * 10);
     }
 }
-console.log(millions(23), millions(1000000));
+console.log(millions(NaN), millions(-1), millions(23), millions(1000000));
 // Write a function that returns a function that can be called repeatedly and passed a number each time. Each time it is called it should return the sum of the number that is passed in and all other numbers that were passed in previous calls. That is, it should return the sum of all the numbers that were ever passed to it.
 function getTotaler() {
     var acc = 0;
