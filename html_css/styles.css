@@ -139,3 +139,23 @@ footer {
     color: white;
     font-size: 12px;
 }
+@media screen and (max-width: 400px) {
+    body {
+        min-height: 100vh;
+    }
+    #welcomeBtn {
+        width: 90vw;
+    }
+    .content {
+       text-align: center;
+       margin: auto;
+    }
+    .content ul {
+        width: 80vw;
+        margin: auto;
+    }
+    #info li {
+        margin: 10px;
+    }
+    
+}

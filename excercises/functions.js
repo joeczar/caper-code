@@ -39,7 +39,7 @@ function millions(num) {
         // while (num < 1000000) {
         //     num = num * 10;
         // }
-        return millions(num * 10);
+        return millions(num * 10); // recursion & NaN idea from V Zisis
     }
 }
 console.log(millions(NaN), millions(-1), millions(23), millions(1000000));
