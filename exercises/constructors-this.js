@@ -30,12 +30,12 @@ function invertCase(string) {
     var strArr = string.split("");
     console.log(strArr);
     
-    return strArr.forEach( char => {
-        //console.log(char);
-        char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase();
+    return strArr.map( char => {
         
+        return char === char.toUpperCase() ? char = char.toLowerCase() : char = char.toUpperCase();
         
     }).join("");
+
 }
 
 console.log(
@@ -47,3 +47,8 @@ console.log(
 
 It's the final countdown
 */
+
+function Countdown(n) {
+    this.steps = n;
+    this.
+}

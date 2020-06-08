@@ -1,0 +1,69 @@
+html {
+    text-align: center;
+}   
+body {
+    min-height: 100vw;
+    margin: auto;
+    padding: 0em;
+    background-color: tomato;
+    text-align: center;
+    padding: 5em;
+    position: relative;
+    width: 25em;
+}
+.figure {
+    background: black;
+}
+#head {
+    background-color: dodgerblue;
+    border: 1em solid black;
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    margin: auto;
+}
+#body {
+    width: 1em;
+    height: 15em;
+    margin: -1em auto;
+    
+}
+
+.arm {
+    position: absolute;
+    top: 15em;
+    width: 7em;
+    height: 1em;
+    margin: auto;
+}
+#left-arm {
+    position: absolute;
+    right: 47%;
+    transform: rotate(45deg);
+    top: 13em;
+}
+#right-arm {
+    position: absolute;
+    left: 47%;
+    transform: rotate(-45deg);
+    top: 13em;
+    
+}
+.leg {
+     width: 7em;
+    height: 1em;
+    margin: auto;
+}
+#left-leg {
+    position: absolute;
+    right: 47%;
+    transform: rotate(-45deg);
+    top: 27em;
+}
+#right-leg {
+    position: absolute;
+    left: 47%;
+    transform: rotate(45deg);
+    top: 27em;
+    
+}
