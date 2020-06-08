@@ -22,4 +22,3 @@ numbers = [];
 numbers = {};
 
 numbers.y = xx;
-console.log(numbers.y)
