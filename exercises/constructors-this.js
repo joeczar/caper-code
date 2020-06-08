@@ -13,7 +13,7 @@ function Rectangle(w, h) {
 function Square(s) {
     return new Rectangle(s, s);
 } // I feel like I should have used call or apply here
-  // but I couldn't do that and use the test arguments given.
+// but I couldn't do that and use the test arguments given.
 
 var square = new Square(4);
 square.getArea(); //16
@@ -27,20 +27,19 @@ console.log(square, square.getArea(), '\n', rect, rect.getArea());
 */
 
 function invertCase(string) {
-    var strArr = string.split("");
+    var strArr = string.split('');
     console.log(strArr);
-    
-    return strArr.map( char => {
-        
-        return char === char.toUpperCase() ? char = char.toLowerCase() : char = char.toUpperCase();
-        
-    }).join("");
 
+    return strArr
+        .map((char) => {
+            return char === char.toUpperCase()
+                ? (char = char.toLowerCase())
+                : (char = char.toUpperCase());
+        })
+        .join('');
 }
 
-console.log(
-    invertCase("AllIWannaDo")
-)
+console.log(invertCase('AllIWannaDo'));
 
 /*
     Write a constructor called Countdown that accepts a single argument - the number of seconds to count down. It should be possible to call the start method of instances of Countdown to initiate the countdown. Once the countdown starts, it should count down to zero starting with the number that was passed to the constructor and logging each number to the console with a one second delay.
@@ -50,5 +49,23 @@ It's the final countdown
 
 function Countdown(n) {
     this.steps = n;
-    this.
+    this.timeout = function() {
+        setTimeout(function() {
+            console.log(this.steps);
+            this.steps--;
+            if ( this.steps > 0) {
+                this.start();
+            }
+        }.bind(this), 1000)
+    }
+    
+    this.start = function() {
+        if (this.steps > 0) {
+            this.timeout();
+            
+        }
+    };
 }
+
+var five = new Countdown(5);
+console.log(five.start());
