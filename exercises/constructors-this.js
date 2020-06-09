@@ -28,13 +28,11 @@ console.log(square, square.getArea(), '\n', rect, rect.getArea());
 
 function invertCase(string) {
     var strArr = string.split('');
-    console.log(strArr);
-
     return strArr
-        .map((char) => {
+        .map(function(char) {
             return char === char.toUpperCase()
-                ? (char = char.toLowerCase())
-                : (char = char.toUpperCase());
+                ? (char.toLowerCase())
+                : (char.toUpperCase());
         })
         .join('');
 }
@@ -49,20 +47,22 @@ It's the final countdown
 
 function Countdown(n) {
     this.steps = n;
-    this.timeout = function() {
-        setTimeout(function() {
-            console.log(this.steps);
-            this.steps--;
-            if ( this.steps > 0) {
-                this.start();
-            }
-        }.bind(this), 1000)
-    }
-    
-    this.start = function() {
+    this.timeout = function () {
+        setTimeout(
+            function () {
+                console.log(this.steps);
+                this.steps--;
+                if (this.steps > 0) {
+                    this.start();
+                }
+            }.bind(this),
+            1000
+        );
+    };
+
+    this.start = function () {
         if (this.steps > 0) {
             this.timeout();
-            
         }
     };
 }
