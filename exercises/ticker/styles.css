@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+ 
+}
+
+#ticker {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 24px;
+  border: 2px sienna dotted;
+}
+
+#headlines {
+  white-space: nowrap;
+  font-size: 0;
+  position: absolute;
+  left: 95%;
+}
+
+#headlines a {
+  padding-right: 40px;
+  border: 1px tomato dashed;
+  font-size: 20px;
+}
