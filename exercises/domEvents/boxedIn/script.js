@@ -8,7 +8,7 @@ outer.addEventListener('click', function (e) {
 function randomRGB() {
     var RGB = [];
     for (var val in new Range(3)) {
-        var val = Math.floor(Math.random() * 256);
+        val = Math.floor(Math.random() * 256);  
         RGB.push(val);
     }
     return RGB;
