@@ -4,10 +4,10 @@
 
 function decorateText(select) {
     var selected = document.querySelectorAll(select);
-    selected.forEach(function(h1) {
+    selected.forEach(function (h1) {
         h1.style.textDecoration = 'underline';
         h1.style.fontStyle = 'italic';
-        h1.style.fontWeight = '800'
+        h1.style.fontWeight = '800';
     });
 }
 
@@ -18,10 +18,9 @@ function decorateText(select) {
 function classSelectToArray(aClass) {
     var classArr = [];
     var selected = document.getElementsByClassName(aClass);
-    for (el in selected) {
-        if (typeof selected[el] === 'object') {
-            classArr.push(selected[el]);
-        }
+    for (var i = 0; i < selected.length; i++) {
+        
+        classArr.push(selected[i]);
     }
     return classArr;
 }
@@ -32,9 +31,9 @@ function classSelectToArray(aClass) {
 function awesomeInsert() {
     var awesomeDiv = document.createElement('div');
     awesomeDiv.style.cssText =
-        'position:absolute;z-index:2147483647;left:20px;top:100px;font-size:200px;color:tomato;';
-    
+        'position:fixed;z-index:2147483647;left:20px;top:100px;font-size:200px;color:tomato;';
+
     var text = document.createTextNode('AWESOME!');
-    awesomeDiv.appendChild(text)
+    awesomeDiv.appendChild(text);
     document.body.appendChild(awesomeDiv);
 }

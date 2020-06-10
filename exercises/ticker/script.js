@@ -27,19 +27,21 @@
 
 */
 
-(function(){
-    console.log(document.getElementsByClassName('headlines'));
+(window.onload = function () {
     var headlines = document.getElementById('headlines');
-    console.log(`headlines:`, headlines);
     var links = headlines.getElementsByTagName('A');
     var left = headlines.offsetLeft;
 
-    function moveHeadlines(x) {
+    function moveHeadlines() {
         left--;
+        console.log(left, -links[0].offsetWidth);
         if (left <= -links[0].offsetWidth) {
-
+            left += links[0].offsetWidth;
+            headlines.appendChild(links[0]);
         }
+        headlines.style.left = left + 'px';
+
         window.requestAnimationFrame(moveHeadlines);
     }
-    moveHeadlines();
+    window.requestAnimationFrame(moveHeadlines);
 })();
