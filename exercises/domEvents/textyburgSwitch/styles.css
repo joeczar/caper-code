@@ -1,0 +1,16 @@
+body {
+    background-color: #121212;
+    color: #696969;
+    text-align: center;
+   
+}
+#wrapper {
+    margin:auto;
+}
+textarea {
+    background-color: grey;
+    border: none;
+    height: 200px;
+    width: 500px;
+    padding: 1em;
+}
