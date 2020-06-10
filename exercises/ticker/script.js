@@ -28,33 +28,67 @@
 */
 (function () {
     var headlines = document.getElementById('headlines');
+    var bHeadlines = document.getElementById('bottomHeadlines');
     var links = headlines.getElementsByTagName('A');
+    var bLinks = bHeadlines.getElementsByTagName('A');
+    var bLeft = bHeadlines.offsetLeft;
     var left = headlines.offsetLeft;
+    var pentagram = document.getElementById('pentagram')
     var step;
-
-
+    var degrees = 0;
 
     headlines.addEventListener('mouseover', function (e) {
-         e.target.style.cssText =
-             'color:red;';
+        e.target.style.cssText = 'color:red;';
         cancelAnimationFrame(step);
     });
-    headlines.addEventListener('mouseout', function(e){
-         e.target.style.cssText = 'textDecoration:none;color:white;'
-         window.requestAnimationFrame(moveHeadlines);
-    })
+    headlines.addEventListener('mouseout', function (e) {
+        e.target.style.cssText = 'textDecoration:none;color:white;';
+        window.requestAnimationFrame(moveHeadlines);
+    });
+    bHeadlines.addEventListener('mouseover', function (e) {
+        e.target.style.cssText = 'color:red;';
+        cancelAnimationFrame(step);
+    });
+    bHeadlines.addEventListener('mouseout', function (e) {
+        e.target.style.cssText = 'textDecoration:none;color:white;';
+        window.requestAnimationFrame(moveHeadlines);
+    });
+
+    function spin() {
+       
+        return degrees;
+    }
 
     function moveHeadlines() {
         left--;
+        bLeft++;
         // console.log(left, links[0].offsetWidth);
-        if (left < -links[0].offsetWidth) {
+         
+         
+             degrees++;
+             if (degrees > 360) {
+                 degrees = 0;
+             }
+         
+        if (left <= -links[0].offsetWidth) {
             left += links[0].offsetWidth;
             headlines.style.left = left + 'px';
             headlines.appendChild(links[0]);
         }
         headlines.style.left = left + 'px';
 
-       step = window.requestAnimationFrame(moveHeadlines);
+        var lastLink = bLinks.length - 1;
+
+        if (bLeft >= bLinks[lastLink].offsetWidth - 300) {
+            bLeft -= bLinks[lastLink].offsetWidth;
+            bHeadlines.style.left = bLeft + 'px';
+            bHeadlines.insertBefore(bLinks[lastLink], bLinks[0]);
+        }
+
+        bHeadlines.style.left = bLeft + 'px';
+        
+        pentagram.style.transform = `rotate(${degrees}deg)`;
+        step = window.requestAnimationFrame(moveHeadlines);
     }
     step = window.requestAnimationFrame(moveHeadlines);
 })();
