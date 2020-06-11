@@ -1,7 +1,6 @@
 var runners = document.getElementsByClassName('runner');
 var donuts = document.getElementsByClassName('donut');
 
-console.log(runners);
 var ghost = 0,
     alien = 0,
     rider = 0,
