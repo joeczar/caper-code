@@ -1,0 +1,46 @@
+/*
+See index.html for instructions.
+*/
+main {
+    display: flex;
+    flex-direction: row;
+}
+.bigbox {
+    width: calc(20vw - 5px);
+    height: calc(20vw - 5px);
+    background-color: grey;
+    margin:2.5px;
+    display: flex;
+}
+.smallbox {
+    width: 50%;
+    height: 50%;
+    background-color: antiquewhite;
+}
+#bigone {
+    background-color: grey;
+}
+#smallone {
+    margin: 0px 0px auto auto;
+    background-color: orange;
+}
+#bigtwo {
+    background-color: black;
+}
+#smalltwo {
+    margin: auto 0px 0px auto;
+    background-color: yellow;
+}
+#bigthree {
+    background-color: blue;
+}
+#smallthree {
+    margin: auto auto 0px 0px;
+    background-color: green;
+}
+#bigfour {
+    background-color: purple;
+}
+#smallfour {
+    background-color: pink;
+}

@@ -2,16 +2,17 @@ var outer = document.getElementById('outer');
 var inner = document.getElementById('inner');
 
 outer.addEventListener('click', function (e) {
+    event.stopPropagation();
     changeColor(e);
 });
 
 function randomRGB() {
-    var RGB = [];
+    var rgb = [];
     for (var val in new Range(3)) {
         val = Math.floor(Math.random() * 256);  
-        RGB.push(val);
+        rgb.push(val);
     }
-    return RGB;
+    return rgb;
 }
 
 function changeColor(e) {

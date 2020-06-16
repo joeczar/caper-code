@@ -143,25 +143,35 @@ footer {
     visibility: hidden;
     min-width: 100vw;
     min-height: 100vh;
-    background-color: rgb(0, 0, 0, 0);
+    background-color: rgba(36, 20, 20, 0.6);
     position: fixed;
     top: 0px;
     left: 0px;
     
 }
 .overlay-on {
-    background-color: rgb(0, 0, 0, 0.6);
+    
     visibility: visible;
-    -webkit-transition: all 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out, visibility 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    opacity:1;
+    -webkit-transition:  opacity 0.5s linear;
+    -moz-transition:  opacity 0.5s linear;
+    -o-transition:  opacity 0.5s linear;
+    transition:  opacity 0.5s linear;
+}
+.overlay-off {
+    visibility: hidden;
+    opacity: 0;
+    top:100%;
+    -webkit-transition: visibility 0s 0.5s, opacity 0.5s linear;
+    -moz-transition: visibility 0s 0.5s, opacity 0.5s linear;
+    -o-transition: visibility 0s 0.5s, opacity 0.5s linear;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
 }
 .menu {
     position: fixed;
-    right: -300px;
+    right: -320px;
     top: 0px;
-    width: 300px;
+    width: 20%;
     height: 100vh;
     background-color: white;
     text-align: center;
@@ -217,7 +227,7 @@ nav {
         margin: 10px;
     }
     .menu {
-        width: 200px;
+        width: 50%;
     }
     #x {
         

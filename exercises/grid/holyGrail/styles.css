@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0px;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: 100px 1fr 100px;
+}
+
+header, footer {
+    background-color: skyblue;
+}
+.left-sidebar, .right-sidebar {
+    background-color: plum;
+}
+main {
+    background-color: peachpuff;
+}
+
+header {
+    grid-column: 1 / 4;
+}
+footer {
+    grid-column: 1 / span 3;
+}

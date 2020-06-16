@@ -23,23 +23,38 @@ body {
 }
 .frame {
     margin: auto;
-    width: 100vw;
+ 
     padding: 30px;
 }
 img {
     height: 600px;
     margin: auto;
+    padding: 35px;
     
     
 }
-#first {
+#first img {
     background-color: #a53d4d;
 }
-#second {
+#second img {
     background-color: #fda53b;
+}
+#third img {
+    background-color: #dab967;
+}
+#fourth img {
+    background-color: #43c09d;
 }
 .shadow {
     -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+}
+#dots {
+    bottom: 5px;
+}
+@media screen and (max-width: 400px) {
+    .frame {
+        margin: 0;
+    }
 }

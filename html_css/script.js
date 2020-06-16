@@ -8,10 +8,12 @@
     hamburger.addEventListener('click', function() {
          menu.classList.add('menu-open');
          overlay.classList.add('overlay-on')
+         overlay.classList.remove('overlay-off');
     })
     x.addEventListener('click', function() {
         menu.classList.remove('menu-open');
         overlay.classList.remove('overlay-on');
+        overlay.classList.add('overlay-off');
     });
 
     function toggleClass() {

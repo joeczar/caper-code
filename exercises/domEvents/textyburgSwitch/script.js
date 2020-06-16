@@ -5,10 +5,15 @@ var textArea = document.getElementsByTagName('textarea')[0];
 var counter = 0;
 var addedValue = '';
 
-document.addEventListener('keypress', function (e) {
-    if (e.keyCode) {
-        counter++;
-        addedValue += letters[counter];
-        textArea.value = addedValue;
+document.addEventListener('input', function (e) {
+    
+    
+    if (e.data !== null) {
+        
+        for (var i = 0; i < e.data.length; i++) {
+            counter++;
+            addedValue += letters[counter];
+            textArea.value = addedValue;
     }
+}
 });
