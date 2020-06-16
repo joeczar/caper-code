@@ -41,7 +41,14 @@
         }
         // move bottom headlines
         // get last link
-        console.log(bLeft + bHeadlines.outerWidth(), wWidth);
+        console.log((bHeadlines.width()) - wWidth);
+        if (bLeft >= bLinks.eq(lastLink).outerWidth()) {
+            bLeft -= bLinks.eq(lastLink).outerWidth();
+            bHeadlines.css({
+                left: bLeft + 'px',
+            });
+            bHeadlines.prepend(bLinks.eq(lastLink))
+        }
         
        
         bHeadlines.css({
