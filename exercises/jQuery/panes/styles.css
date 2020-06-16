@@ -1,0 +1,40 @@
+body {
+    height: 100vh;
+    background-color: #000;
+    color: white;
+}
+img {
+    height: 400px;
+    width: 600px;
+    object-fit: cover;
+    object-position: top;
+   
+}
+
+#container {
+    position: relative;
+    border: 5px solid #696969;
+    height: 400px;
+    width: 600px;
+}
+
+#topImage,
+#bottomImage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    
+}
+
+#topImage {
+    overflow: hidden;
+}
+
+#slide {
+    position: absolute;
+    width: 10px;
+    background-color: #696969;
+    top: 0px;
+    
+    height: 100%;
+}

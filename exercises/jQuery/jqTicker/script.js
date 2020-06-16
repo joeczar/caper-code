@@ -8,14 +8,16 @@
     var bHeadlines = $('#bottomHeadlines');
     var bLinks = bHeadlines.find('A');
     var bLeft = bHeadlines.offset().left;
+    
     var lastLink = bLinks.length - 1;
+    var wWidth = $(window).width()
 
     var pentagram = $('#pentagram')
     var step;
     var degrees = 0;
 
     // top event listeners
-    headlines.on('mouseover', function(e) {
+    headlines.on('mouseover', function(e) { 
         $(e.target).css({ color: 'red', })
         cancelAnimationFrame(step);
     })
@@ -37,18 +39,11 @@
             headlines.append(links.eq(0));
            
         }
-        // move nottom headlines
+        // move bottom headlines
         // get last link
+        console.log(bLeft + bHeadlines.outerWidth(), wWidth);
         
-        console.log(lastLink);
-        
-        if (bLeft >= bLinks.eq(lastLink).outerWidth()) {
-            bLeft -= bLinks.eq(lastLink).outerWidth();
-            bHeadlines.css({
-                left: bLeft + 'px',
-            });
-            bHeadlines.prepend(bLinks.eq(lastLink))
-        }
+       
         bHeadlines.css({
             left: bLeft + 'px',
         });
