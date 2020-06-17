@@ -27,7 +27,7 @@
     var doc = $(document)
     var input = $('input');
     var resultsContainer = $('#resultsContainer');
-
+    var elems = resultsContainer.find('p');
     // counter
     var selector = 0;
     
@@ -71,7 +71,8 @@
         
     });
     doc.on('keydown', function(e) { 
-         var elems = $('.country');
+         var elems = resultsContainer.find('p');
+         console.log(elems);
          
          handleKeydown(e, elems); 
     })
