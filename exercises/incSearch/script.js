@@ -65,14 +65,10 @@
         var text = p.text();
         input.val(text)
     });
-    resultsContainer.on('keydown', function (e) {
-        var countryP = $('.country');
-        console.log(countryP);
-        
-    });
+    
     doc.on('keydown', function(e) { 
          var elems = resultsContainer.find('p');
-         console.log(elems);
+         
          
          handleKeydown(e, elems); 
     })
@@ -127,15 +123,10 @@
         // enter
        
         if (e.keyCode === 13) {
-
-            for (var i = 0; i < elems.length; i++) {
-                if (elems.eq(i).hasClass('highlight')) {
-                    console.log(elems.eq(i));
-                    
-                    
-                }
-            }
+            console.log($('.highlight').text());
             
+            
+            input.val($('.highlight').text());
         }
         
     }
