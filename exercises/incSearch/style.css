@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+    background-color: #000;
+    color: silver;
+    
+    
+    
+}
+#searchWrapper {
+    margin: auto;
+    background-color: #696969;
+}
+label {
+    width: 100%;
+    padding: 1em 0 0 .5em;
+    
+}
+input {
+    width: 100%;
+    padding: .5em;
+    font-size: larger;
+}
+#resultsContainer {
+    background-color: #fff;
+    color: black;
+    border-top: 2px solid black;
+}
+.country {
+    padding: .5em;
+    margin: 0;
+}
+.highlight {
+    
+    background-color: darkslategray;
+    color: lavender;
+}
