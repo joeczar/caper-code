@@ -15,8 +15,6 @@
     var elems;
     var highlighted;
     var inputVal;
-    // counter
-    var selector = 0;
 
     // event listeners
     // input
@@ -24,7 +22,7 @@
         inputVal = input.val();
         getCountries(inputVal);
     });
-    
+
     input.on('focus', function (e) {
         input.css({
             border: '2px solid blue',
@@ -32,7 +30,7 @@
         var inputVal = input.val();
         getCountries(inputVal);
     });
-    
+
     input.on('blur', function (e) {
         input.css({
             border: '2px solid white',
@@ -40,7 +38,7 @@
         resultsContainer.html('');
     });
 
-    // resultsContainer 
+    // resultsContainer
     resultsContainer.on('mouseover', 'p', function (e) {
         var p = $(e.target);
         p.addClass('highlight');
@@ -55,7 +53,6 @@
         var p = $(e.target);
         var text = p.text();
         input.val(text);
-        
     });
     // keydown
     doc.on('keydown', function (e) {
@@ -69,7 +66,8 @@
             return indexPass(country, input);
         });
         // check for results & store top four or no results
-        var topFour = filtered.length === 0 ? ['No Results'] : filtered.slice(0, 4);
+        var topFour =
+            filtered.length === 0 ? ['No Results'] : filtered.slice(0, 4);
 
         // filter function
         function indexPass(value, input) {
@@ -84,39 +82,27 @@
         topFour.forEach(function (result) {
             resultsHTML += '<p class="country">' + result + '</p>';
         });
-        inputVal === "" ? resultsContainer.html("") : resultsContainer.html(resultsHTML);
+        inputVal === ''
+            ? resultsContainer.html('')
+            : resultsContainer.html(resultsHTML);
     }
 
     // up down function
     function handleKeydown(e, elems) {
         elems = resultsContainer.find('p');
         highlighted = $('.highlight');
-
-        
-        // apply selected highlight
-        for (var i = 0; i < elems.length; i++) {
-            if (i === selector && !elems.eq(i).hasClass('highlight')) {
-                elems.eq(i).addClass('highlight');
-            } else {
-                
-                elems.eq(i).removeClass('highlight');
-            }
+        if (highlighted.length === 0) {
+            elems.eq(0).addClass('highlight');
         }
-
-        // increment selector
         if (e.keyCode === 40) {
-            selector++;
-            if (selector > elems.length - 1) {
-                selector = 0;
-            }
-        } else if (e.keyCode === 38) {
-            selector--;
-            if (selector < 0) {
-                selector = 3;
-            }
+            highlighted.next().addClass('highlight');
+            highlighted.removeClass('highlight');
+        }
+        if (e.keyCode === 38) {
+            highlighted.prev().addClass('highlight');
+            highlighted.removeClass('highlight');
         }
 
-        // enter
         if (e.keyCode === 13) {
             input.val(highlighted.text());
             resultsContainer.html('');
