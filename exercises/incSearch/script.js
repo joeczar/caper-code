@@ -40,6 +40,9 @@
 
     // resultsContainer
     resultsContainer.on('mouseover', 'p', function (e) {
+        
+        highlighted = $('.highlight');
+        highlighted.removeClass('highlight');
         var p = $(e.target);
         p.addClass('highlight');
     });
