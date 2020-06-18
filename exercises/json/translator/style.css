@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Farisea';
+    src: url('Farisea-Dark-demo-ffp.ttf') format('truetype');
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+}
+.numbers {
+    font-family: 'Farisea';
+    font-size: 20vw;
+    margin: auto;
+}
