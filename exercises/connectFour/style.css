@@ -1,0 +1,33 @@
+/* #43bccd lightblue #662e9b lavender #ea3546 coho #f86624 orange #f9c80e yellow */
+
+body {
+    min-height: 100vh;
+    background-color: #43bccd;
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    margin: auto;
+}
+.slot {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+.hole {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 40px solid #f9c80e;
+    transform: translate(-30px, -30px);
+    
+}
+#board {
+    display: flex;
+}
+.player1 {
+    background-color: #ea3546;
+}
+.player2 {
+    background-color: #662e9b;
+}
