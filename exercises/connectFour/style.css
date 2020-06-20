@@ -1,18 +1,88 @@
 /* #43bccd lightblue #662e9b lavender #ea3546 coho #f86624 orange #f9c80e yellow */
 
+@font-face {
+    font-family: 'OleoScript';
+    src: url(OleoScript-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Odibee';
+    src: url(OdibeeSans-Regular.ttf) format('truetype');
+}
+
+
 body {
     min-height: 100vh;
     background-color: #43bccd;
     display: flex;
     flex-direction: column;
+    justify-items: start;
+    margin: 0;
+}
+#scoreboard {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-around;
+    margin:  0 auto;
+    height: 125px;
+    width: 100%;
+}
+#start {
+    align-self: center;
+    margin: auto;
+    font-size: x-large;
+    background: none;
+    border: none;
+    font-family: 'Odibee';
+    color: #f9c80e;
+    text-shadow: 3px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.player {
+    margin: auto;
+    font-family: 'Odibee';
+    font-size: x-large;
+}
+.playerName {
+    font-family: 'OleoScript';
+    font-size: 50px;
+    display: block;
+    text-align: center;
+    text-shadow: 3px 1px 2px rgba(0, 0, 0, 0.7);
+}
+#playerName1 {
+    color:#ea3546;
+}
+#playerName2 {
+    color: #662e9b;
+}
+#title {
+    font-family: 'OleoScript';
+    font-size: xx-large;
+    color:#f86624;
+    text-shadow: 3px 1px 2px rgba(0, 0, 0, 1);
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 125px;
+}
+#title h1 {
+    margin:auto;;
 }
 .container {
+    margin:  0 auto;
+    display: flex;
+    flex-direction: column;
     margin: auto;
+    justify-items: center;
 }
 .slot {
     height: 100px;
     width: 100px;
     overflow: hidden;
+    
 }
 .hole {
     width: 80px;
@@ -20,14 +90,46 @@ body {
     border-radius: 50%;
     border: 40px solid #f9c80e;
     transform: translate(-30px, -30px);
+
     
 }
 #board {
     display: flex;
+    flex-direction: row;
+    width: 700px;
+    margin: auto;
+}
+.column {
+    margin: auto;
 }
 .player1 {
     background-color: #ea3546;
 }
 .player2 {
     background-color: #662e9b;
+}
+#shroud {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: rgb(0,0,0,0.6);
+    opacity: 1;
+    justify-content: center;
+    align-items: center;
+}
+#alert {
+    background-color: #43bccd;
+    width: 500px;
+    height: 300px;
+    border-radius: 30px;
+    border: 2px solid white;
+}
+.hide {
+    visibility: hidden;
+    opacity: 0;
+}
+.show {
+    visibility: visible;
+    opacity: 1;
 }
