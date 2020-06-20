@@ -8,7 +8,6 @@
 
     var game;
 
-    $('.column').on('click', drop);
     start.on('click', startGame);
 
     function drop(e) {
@@ -26,7 +25,7 @@
                 lastPlay = [colNumber, i];
                 slotsInCol.eq(i).addClass(currentPlayer);
                 game.play(currentPlayer, lastPlay);
-                
+
                 break;
             }
         }
@@ -38,36 +37,37 @@
         }
         if (columnCheck(slotsInCol)) {
             console.log('column victory');
+            victory();
         } else if (rowCheck(slotsInRow)) {
             console.log('row victory');
+            victory();
         } else if (diagonalCheck(lastPlay)) {
             console.log('diagonal victory');
+            victory();
         }
         switchPLayer();
     }
     function diagonalCheck(currentPos) {
         var left = 0;
         var right = 0;
-        var currentR = currentPos[0] + currentPos[1]
+        var currentR = currentPos[0] + currentPos[1];
         var currentL = currentPos[0] - currentPos[1];
-        
+
         for (var i = 0; i < slots.length; i++) {
-            
             var col = columns.indexOf(slots.eq(i).parent().attr('id'));
             var rowClasses = slots.eq(i).attr('class').split(' ');
-            var row = Number(rowClasses[1].slice(-1) - 1)
+            var row = Number(rowClasses[1].slice(-1) - 1);
             var diagRight = col + row;
-            var diagLeft = col-row;
-            
+            var diagLeft = col - row;
+
             if (currentR === diagRight && slots.eq(i).hasClass(currentPlayer)) {
                 right++;
-                console.log( 'right', right);
-            } 
+            }
             if (currentL === diagLeft && slots.eq(i).hasClass(currentPlayer)) {
                 left++;
-                console.log(`left:`, left);
             }
             if (left === 4 || right === 4) {
+                console.log('VICTORY!');
                 return true;
             }
         }
@@ -110,24 +110,24 @@
     }
 
     function startGame() {
-        var pNames = []
+        var pNames = [];
 
-        shroud.addClass('show').removeClass('hide')
-        getPLayerNames()
+        shroud.addClass('show').removeClass('hide');
+        getPLayerNames();
 
         function getPLayerNames() {
             var p1Input = $('#p1Input');
             var p2Input = $('#p2Input');
-            var ok = $('#pnOK')
-            var pNames = ["", ""]
-            
+            var ok = $('#pnOK');
+            var pNames = ['', ''];
+
             playerNames.addClass('show').removeClass('hide');
             // get player one name
-            p1Input.on('input', handleP1Input)
+            p1Input.on('input', handleP1Input);
             // get player two name
-            p2Input.on('input', handleP2Input)
+            p2Input.on('input', handleP2Input);
             // handle ok
-            ok.on('click', handleOk)
+            ok.on('click', handleOk);
 
             function handleP1Input(e) {
                 pNames[0] = p1Input.val();
@@ -151,21 +151,45 @@
             function closeGetNameAndStart(names) {
                 playerNames.addClass('hide').removeClass('show');
                 shroud.addClass('hide').removeClass('show');
-                p1Input.off('input', handleP1Input)
-                p2Input.off('input', handleP2Input)
+                p1Input.off('input', handleP1Input);
+                p2Input.off('input', handleP2Input);
                 ok.off('click', handleOk);
 
                 game = new ConnectFour(names[0], names[1]);
                 $('#playerName1').text(names[0]);
                 $('#playerName2').text(names[1]);
+                clearBoard();
+                $('.column').on('click', drop);
+                start.text('New Game!');
             }
         }
     }
-    function newGame() {
+    function victory() {
+        var nameArr = game.getPLayerName();
+        var victory = $('#victory');
 
-        var newPlayers = confirm('Would you change players?');
-        console.log(newPlayers);
+        victory.removeClass('hide').addClass('show');
+        $('#winnerPlayer').text('Player ' + nameArr[0]);
+        $('#winnerName').text(nameArr[1]);
+        $('#winnerName').addClass('playerName' + nameArr[0]);
+        $('#xWrapper').on('click', closeVictory)
+
+        function closeVictory(e) {
+            victory.removeClass('show').addClass('hide');
+            $('#xWrapper').off('click', closeVictory);
+        }
     }
+    function clearBoard() {
+        slots.each(function (i) {
+            var elem = $(this);
+            if (elem.hasClass('player1')) {
+                elem.removeClass('player1');
+            } else if (elem.hasClass('player2')) {
+                elem.removeClass('player2');
+            }
+        });
+    }
+
     // game state
     function ConnectFour(player1Name, player2name) {
         (this.player1 = new Player(player1Name, 1)),
@@ -184,6 +208,7 @@
             var num = currentPlayer.charAt(currentPlayer.length - 1);
             var player = num === '1' ? this.player1.name : this.player2.name;
             console.log('Player ' + num + ': ' + player);
+            return [num, player];
         };
 
         this.printCurrentBoard = function () {

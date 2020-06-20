@@ -11,12 +11,12 @@
         <div id="scoreboard">
             <div id="player1">
                 <span class="player">Player One</span>
-                <span class="playerName" id="playerName1"></span>
+                <span class="playerName playerName1" id="playerName1"></span>
             </div>
             <div id="title"><button id="start">Click to Start! </button><h1>Connect Four!</h1></div>
             <div id="player2">
                 <span class="player">Player Two</span>
-                <span class="playerName" id="playerName2"></span>
+                <span class="playerName playerName2" id="playerName2"></span>
             </div>
         </div>
         <div id="board">
@@ -164,8 +164,8 @@
         
     </div>
     <div id="shroud" class="hide">
-            <div id="playerNames" class="hide shadow">
-                <h1 id="pnTitle">Who's Playing?</h1>
+            <div id="playerNames" class="alert hide shadow">
+                <h1 id="pnTitle" class="alert-h1">Who's Playing?</h1>
                 <div id="body">
                     <div id="input">
                         <div class="inputWrapper">
@@ -179,6 +179,16 @@
                     </div>
                     <button id="pnOK" class="shadow button">ok</button>
                 </div>
+            </div>
+            <div id="victory" class="alert shadow hide">
+                <div id="xWrapper">
+                <div id="leftX" class="ex"></div>
+                <div id="rightX" class="ex"></div>
+            </div>
+                <h1 class="alert-h1">Congratulations!</h1>
+                <h2 id="winnerPlayer" class="player"></h2>
+                <h2 id="winnerName" class="playerName"></h2>
+                <p>Well done! Keep playing to see who can get the longest winning streak.</p>
             </div>
         </div>
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
