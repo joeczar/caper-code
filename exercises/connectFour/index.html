@@ -164,11 +164,20 @@
         
     </div>
     <div id="shroud" class="hide">
-            <div id="alert">
-                <h1 id="title"></h1>
+            <div id="playerNames" class="hide shadow">
+                <h1 id="pnTitle">Who's Playing?</h1>
                 <div id="body">
-                    <p id="text"></p>
-                    <div id="action"></div>
+                    <div id="input">
+                        <div class="inputWrapper">
+                        <label for="p1Input">Player One</label>
+                        <input placeholder="Name" id="p1Input" class="pNameInput">
+                        </div>
+                        <div class="inputWrapper">
+                        <label for="p2Input">Player Two</label>
+                        <input placeholder="Name" id="p2Input" class="pNameInput">
+                        </div>
+                    </div>
+                    <button id="pnOK" class="shadow button">ok</button>
                 </div>
             </div>
         </div>

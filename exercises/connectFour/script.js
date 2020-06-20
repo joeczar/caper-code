@@ -1,8 +1,11 @@
 (function () {
     var currentPlayer = 'player1';
-    var slots = $('.slot');
     var columns = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7'];
+    var slots = $('.slot');
     var start = $('#start');
+    var shroud = $('#shroud');
+    var playerNames = $('#playerNames');
+
     var game;
 
     $('.column').on('click', drop);
@@ -11,6 +14,7 @@
     function drop(e) {
         var col = $(e.currentTarget);
         var slotsInCol = col.children();
+        var lastPlay;
         colNumber = columns.indexOf(col.attr('id'));
 
         for (var i = slotsInCol.length - 1; i >= 0; i--) {
@@ -19,8 +23,10 @@
                 !slotsInCol.eq(i).hasClass('player2')
             ) {
                 // do something
+                lastPlay = [colNumber, i];
                 slotsInCol.eq(i).addClass(currentPlayer);
-                game.play(currentPlayer, [colNumber, i]);
+                game.play(currentPlayer, lastPlay);
+                
                 break;
             }
         }
@@ -34,11 +40,38 @@
             console.log('column victory');
         } else if (rowCheck(slotsInRow)) {
             console.log('row victory');
+        } else if (diagonalCheck(lastPlay)) {
+            console.log('diagonal victory');
         }
-
         switchPLayer();
     }
-
+    function diagonalCheck(currentPos) {
+        var left = 0;
+        var right = 0;
+        var currentR = currentPos[0] + currentPos[1]
+        var currentL = currentPos[0] - currentPos[1];
+        
+        for (var i = 0; i < slots.length; i++) {
+            
+            var col = columns.indexOf(slots.eq(i).parent().attr('id'));
+            var rowClasses = slots.eq(i).attr('class').split(' ');
+            var row = Number(rowClasses[1].slice(-1) - 1)
+            var diagRight = col + row;
+            var diagLeft = col-row;
+            
+            if (currentR === diagRight && slots.eq(i).hasClass(currentPlayer)) {
+                right++;
+                console.log( 'right', right);
+            } 
+            if (currentL === diagLeft && slots.eq(i).hasClass(currentPlayer)) {
+                left++;
+                console.log(`left:`, left);
+            }
+            if (left === 4 || right === 4) {
+                return true;
+            }
+        }
+    }
     function rowCheck(slots) {
         var counter = 0;
         for (var i = 0; i < slots.length; i++) {
@@ -77,20 +110,61 @@
     }
 
     function startGame() {
-        var player1 = prompt('Player One: Please enter your name.')
-        $('#playerName1').text(player1);
-        var player2 = prompt('Player Two: Please enter your name.');
-        $('#playerName2').text(player2);
-        game = new ConnectFour(player1, player2)
-        game.printCurrentBoard();
-        start.text('New Game!');
-        start.off('click', startGame)
-        start.on('click', newGame)
+        var pNames = []
+
+        shroud.addClass('show').removeClass('hide')
+        getPLayerNames()
+
+        function getPLayerNames() {
+            var p1Input = $('#p1Input');
+            var p2Input = $('#p2Input');
+            var ok = $('#pnOK')
+            var pNames = ["", ""]
+            
+            playerNames.addClass('show').removeClass('hide');
+            // get player one name
+            p1Input.on('input', handleP1Input)
+            // get player two name
+            p2Input.on('input', handleP2Input)
+            // handle ok
+            ok.on('click', handleOk)
+
+            function handleP1Input(e) {
+                pNames[0] = p1Input.val();
+            }
+            function handleP2Input(e) {
+                pNames[1] = p2Input.val();
+            }
+            function handleOk(e) {
+                var conf;
+                if (pNames[0] === '' || pNames[1] === '') {
+                    conf = confirm(
+                        "Are you sure you don't want to enter a PLayer name?\nYou won't be able to save your victory."
+                    );
+                    if (conf) {
+                        closeGetNameAndStart(['', '']);
+                    }
+                } else {
+                    closeGetNameAndStart(pNames);
+                }
+            }
+            function closeGetNameAndStart(names) {
+                playerNames.addClass('hide').removeClass('show');
+                shroud.addClass('hide').removeClass('show');
+                p1Input.off('input', handleP1Input)
+                p2Input.off('input', handleP2Input)
+                ok.off('click', handleOk);
+
+                game = new ConnectFour(names[0], names[1]);
+                $('#playerName1').text(names[0]);
+                $('#playerName2').text(names[1]);
+            }
+        }
     }
     function newGame() {
-        var newPlayers = confirm('Would you change players?')
+
+        var newPlayers = confirm('Would you change players?');
         console.log(newPlayers);
-        
     }
     // game state
     function ConnectFour(player1Name, player2name) {
@@ -114,11 +188,10 @@
 
         this.printCurrentBoard = function () {
             var board = '';
-            
+
             for (var i = 0; i < this.board.length; i++) {
                 var row = this.board[i];
                 board += row.toString() + '\n';
-                
             }
             console.log(board);
         };
