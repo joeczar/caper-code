@@ -1,12 +1,15 @@
 (function () {
     var currentPlayer = 'player1';
     var columns = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7'];
+    var doc = $(document);
+    var board = $('#board');
     var slots = $('.slot');
     var start = $('#start');
     var shroud = $('#shroud');
     var playerNames = $('#playerNames');
-
+    var chip = $('#chip');
     var game;
+    var finished;
 
     start.on('click', startGame);
 
@@ -23,7 +26,8 @@
             ) {
                 // do something
                 lastPlay = [colNumber, i];
-                slotsInCol.eq(i).addClass(currentPlayer);
+                dropPlayerPiece(slotsInCol.eq(i));
+
                 game.play(currentPlayer, lastPlay);
 
                 break;
@@ -32,20 +36,91 @@
         var slotsInRow = $('.row' + (i + 1));
 
         // if i is -1 col is full, get outta there!
-        if (i === -1) {
-            return;
+
+        waitForAnimation();
+        function waitForAnimation() {
+            if (finished === false) {
+                setTimeout(waitForAnimation, 50);
+                return;
+            } else {
+                if (i === -1) {
+                    return;
+                }
+                if (columnCheck(slotsInCol)) {
+                    console.log('column victory');
+                    victory();
+                } else if (rowCheck(slotsInRow)) {
+                    console.log('row victory');
+                    victory();
+                } else if (diagonalCheck(lastPlay)) {
+                    console.log('diagonal victory');
+                    victory();
+                }
+                switchPLayer();
+            }
         }
-        if (columnCheck(slotsInCol)) {
-            console.log('column victory');
-            victory();
-        } else if (rowCheck(slotsInRow)) {
-            console.log('row victory');
-            victory();
-        } else if (diagonalCheck(lastPlay)) {
-            console.log('diagonal victory');
-            victory();
+    }
+
+    function playerPiece(e) {
+        var bgc = currentPlayer === 'player1' ? '#ea3546' : '#662e9b';
+        var col = $(e.target).parent().parent();
+        var left;
+        if (chip.hasClass('hide')) {
+            chip.removeClass('hide');
         }
-        switchPLayer();
+        // var bottom = board.offset().top + board.height();
+        if ($(e.target).hasClass('hole')) {
+            try {
+                left = col.offset().left + 5 + 'px';
+            } catch (err) {
+                console.log('off the board', err);
+            }
+        }
+
+        chip.css({
+            position: 'absolute',
+            backgroundColor: bgc,
+            borderRadius: '50%',
+            border: '3px solid white',
+            width: '80px',
+            height: '80px',
+            left: left,
+            top: '50px',
+            zIndex: 0,
+        });
+        // for (var i = 0; i < )
+    }
+    function dropPlayerPiece(slot) {
+        var start = chip.offset().top;
+        var top = start;
+        var left = chip.offset().left;
+        var bottom = slot.offset().top;
+        var step;
+        finished = false;
+        doc.off('mouseover', playerPiece);
+        function animateDrop() {
+            top += 10;
+            
+
+            chip.css({ top: top + 'px' });
+            if (top >= bottom) {
+                chip.addClass('hide');
+                slot.addClass(currentPlayer);
+                doc.on('mouseover', playerPiece);
+                cancelAnimationFrame(step);
+                finished = true;
+                return;
+                // chip.css({ top: start + 'px' });
+            }
+
+            step = window.requestAnimationFrame(animateDrop);
+        }
+
+        chip.css({
+            top: top + 'px',
+            left: left + 'px',
+        });
+        step = window.requestAnimationFrame(animateDrop);
     }
     function diagonalCheck(currentPos) {
         var left = 0;
@@ -72,6 +147,7 @@
             }
         }
     }
+
     function rowCheck(slots) {
         var counter = 0;
         for (var i = 0; i < slots.length; i++) {
@@ -103,6 +179,7 @@
             }
         }
     }
+
     function switchPLayer() {
         currentPlayer === 'player1'
             ? (currentPlayer = 'player2')
@@ -110,7 +187,7 @@
     }
 
     function startGame() {
-        var pNames = [];
+        // var pNames = [];
 
         shroud.addClass('show').removeClass('hide');
         getPLayerNames();
@@ -147,6 +224,7 @@
                 } else {
                     closeGetNameAndStart(pNames);
                 }
+                doc.on('mouseover', playerPiece);
             }
             function closeGetNameAndStart(names) {
                 playerNames.addClass('hide').removeClass('show');
@@ -159,20 +237,22 @@
                 $('#playerName1').text(names[0]);
                 $('#playerName2').text(names[1]);
                 clearBoard();
+
                 $('.column').on('click', drop);
                 start.text('New Game!');
             }
         }
     }
+
     function victory() {
         var nameArr = game.getPLayerName();
         var victory = $('#victory');
-
+        doc.off('mouseover', playerPiece);
         victory.removeClass('hide').addClass('show');
         $('#winnerPlayer').text('Player ' + nameArr[0]);
         $('#winnerName').text(nameArr[1]);
         $('#winnerName').addClass('playerName' + nameArr[0]);
-        $('#xWrapper').on('click', closeVictory)
+        $('#xWrapper').on('click', closeVictory);
 
         function closeVictory(e) {
             victory.removeClass('show').addClass('hide');

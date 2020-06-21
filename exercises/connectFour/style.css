@@ -94,6 +94,7 @@ body {
     flex-direction: row;
     width: 700px;
     margin: auto;
+    z-index:2;
 }
 .column {
     margin: auto;
@@ -113,6 +114,7 @@ body {
     opacity: 1;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
 .alert {
     position: fixed;
