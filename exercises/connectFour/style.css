@@ -205,3 +205,22 @@ body {
     right: 5px;
     top: 10px;
 }
+.point {
+    background-color: #ea3546!important;
+    color: white;
+    font-size: 25px;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin: auto auto auto 10px;
+}
+.playerPoint {
+    display: flex;
+    flex-direction: row;
+    
+}

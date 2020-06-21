@@ -187,7 +187,6 @@
     }
 
     function startGame() {
-        // var pNames = [];
 
         shroud.addClass('show').removeClass('hide');
         getPLayerNames();
@@ -240,6 +239,8 @@
 
                 $('.column').on('click', drop);
                 start.text('New Game!');
+                start.off('click', startGame)
+                start.on('click', samePlayers)
             }
         }
     }
@@ -253,10 +254,33 @@
         $('#winnerName').text(nameArr[1]);
         $('#winnerName').addClass('playerName' + nameArr[0]);
         $('#xWrapper').on('click', closeVictory);
-
+        // increment score
+        if (nameArr[0] == 1) {
+             game.player1.score++;
+             $('#p1Point').text(game.player1.score)
+        } else {
+            game.player2.score++;
+            $('#p2Point').text(game.player2.score)
+        }
+                    
+        var thisGame = game;
+        game.playedGames.push(thisGame)
+        console.log('Player One ' + game.player1.score, 'Player Two ' + game.player2.score);
+        
         function closeVictory(e) {
             victory.removeClass('show').addClass('hide');
             $('#xWrapper').off('click', closeVictory);
+        }
+    }
+    function samePlayers(e) {
+        var same = confirm('Are the same two players playing?')
+        if (same) {
+            game.history = []
+            clearBoard()
+            doc.on('mouseover', playerPiece);
+            $('.column').on('click', drop);
+        } else {
+            startGame()
         }
     }
     function clearBoard() {
@@ -268,6 +292,7 @@
                 elem.removeClass('player2');
             }
         });
+        game.newBoard()
     }
 
     // game state
@@ -275,7 +300,11 @@
         (this.player1 = new Player(player1Name, 1)),
             (this.player2 = new Player(player2name, 2)),
             (this.board = new Board()),
+            (this.newBoard = function() {
+                this.board = new Board()
+            }),
             (this.history = []),
+            (this.playedGames = []),
             (this.play = function (player, position) {
                 var oldBoard = JSON.stringify(this.board);
                 this.history.push(oldBoard);
@@ -309,7 +338,12 @@
             return arr;
         }
         function Player(name, number) {
-            (this.name = name), (this.number = number), this.score;
+            (this.name = name), (this.number = number), (this.score = 0);
         }
+    }
+
+    function saveGame() {
+        // check local storage
+
     }
 })();
