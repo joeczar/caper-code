@@ -3,6 +3,7 @@
     var nameInput = $('input')
     var name;
     var storedText;
+    var text;
     var doc = $(document)
     var saveBtn = $('#save');
     var loadBtn = $('#load');
@@ -23,7 +24,7 @@
     })
     
     textArea.on('input', function (e) {
-        var text = textArea.val();
+        text = textArea.val();
         
     })
     saveBtn.on('click', function(e) {
@@ -34,19 +35,41 @@
         }
     })
     loadBtn.on('click', function(e) {
-        
         if (name === undefined) {
             alert('Please enter a text name')
         } else {
             try {
-                localStorage.getItem(name);
+                var text = localStorage.getItem(name);
+                if (text === null) {
+                    alert("We couldn't find that text.");
+                } else {
+                    console.log(text);
+                    
+                    textArea.val(text)
+                }
+                
             } catch(err) {
                 console.log('load', err);
-                if (err == name) {
-                    alert("We couldn't find that text.")
-                }
+                
             }
         }
+    })
+    deleteBtn.on('click', function(e) {
+         if (name === undefined) {
+             alert('Please enter a text name');
+         } else {
+             try {
+                 localStorage.removeItem(name);
+                 nameInput.val("");
+                 textArea.val("");
+                     alert(name + ' has been deleted');
+
+                     
+                 
+             } catch (err) {
+                 console.log('load', err);
+             }
+         }
     })
     
     

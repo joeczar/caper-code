@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Local Storage</title>
 </head>
 <body>
+    <div class="container">
     <textarea style="width: 500px;height: 350px;" placeholder="Dear Diary, &#10  today I had a really nice lesson at Spiced. We learned about local storage."></textarea>
-    <label>Text Name<input placeholder="The Gettysburg Address"></label>
-    <button id="save">Save</button>
-    <button id="load">Load</button>
-    <button id="delete">Delete</button>
-    
+    <div id="wrapper">
+        <label id="title">Title<input placeholder="Wednesday"></label>
+        <button id="save">Save</button>
+        <button id="load">Load</button>
+        <button id="delete">Delete</button>
+    </div>
+    </div>
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <script src="script.js"></script>
 </body>

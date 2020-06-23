@@ -1,11 +1,5 @@
 (function () {
-    // get countries from countries.json
-    var countries = [];
-    $.getJSON('countries.json', function (data) {
-        $.each(data, function (data, i) {
-            countries.push(i);
-        });
-    });
+   
 
     // elements
     var doc = $(document);
@@ -15,20 +9,69 @@
     var elems;
     var highlighted;
     var inputVal;
-
+    var timerId;
     // event listeners
     // input
     input.on('input', function (e) {
         inputVal = input.val();
-        getCountries(inputVal);
+        if (!inputVal) {
+            resultsContainer.html('')
+        } else {
+            debounce(ajaxReq(inputVal), 250);
+        }
     });
+
+   
+    // debounce from https://www.telerik.com/blogs/debouncing-and-throttling-in-javascript
+    function debounce(fn, delay) {
+        // cancels the timeout
+        clearTimeout(timerId)
+
+        // timeout function
+        timerId = setTimeout(fn, delay);
+    }
+
+    function ajaxReq(input) {
+        console.log(input);
+        
+         $.ajax({
+                url: 'https://spicedworld.herokuapp.com/',
+                data: {
+                    q: input,
+                },
+                success: function (data, msg, i) {
+                    // do something with the data here
+                    console.log(i);
+                    var currentVal = $('input').val()
+                    
+                    if (input !== currentVal) {
+                        console.log(currentVal);
+                        
+                        ajaxReq(currentVal)
+                    }
+                    var resultsHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(function (elem) {
+                            resultsHTML +=
+                                '<p class="country">' + elem + '</p>';
+                        });
+                    } else {
+                        resultsHTML = 'No Results';
+                    }
+
+                    resultsContainer.html(resultsHTML);
+                },
+            });
+     
+    }
+
 
     input.on('focus', function (e) {
         input.css({
             border: '2px solid blue',
         });
-        var inputVal = input.val();
-        getCountries(inputVal);
+        // var inputVal = input.val();
+        // getCountries(inputVal);
     });
 
     input.on('blur', function (e) {
@@ -62,33 +105,9 @@
         handleKeydown(e, elems);
     });
 
-    // search
-    function getCountries(input) {
-        // filter countries according to input
-        var filtered = countries.filter(function (country) {
-            return indexPass(country, input);
-        });
-        // check for results & store top four or no results
-        var topFour =
-            filtered.length === 0 ? ['No Results'] : filtered.slice(0, 4);
 
-        // filter function
-        function indexPass(value, input) {
-            return (
-                value.toLowerCase().indexOf(input.toLowerCase()) === 0 &&
-                input.length > 0
-            );
-        }
-
-        // create html string with results
-        var resultsHTML = '';
-        topFour.forEach(function (result) {
-            resultsHTML += '<p class="country">' + result + '</p>';
-        });
-        inputVal === ''
-            ? resultsContainer.html('')
-            : resultsContainer.html(resultsHTML);
-    }
+    //     // create html string with results
+    
 
     // up down function
     function handleKeydown(e, elems) {
