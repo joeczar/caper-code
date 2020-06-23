@@ -1,23 +1,26 @@
 (function () {
-    $('#go').on('click', function (e) {
-        var input = $('input[name=user-input]').val();
-        var albumOrArtist = $('select').val();
-        var url = 'https://spicedify.herokuapp.com/spotify';
+    var url = 'https://spicedify.herokuapp.com/spotify';
+    var container = $('#results-container');
+    var input;
 
-        console.log(albumOrArtist);
-        spicedifyRequest(url, input, albumOrArtist);
-        
+    $('#go').on('click', function (e) {
+        input = getUserInput();
+        spicedifyRequest(url, input[0], input[1]);
     });
 
+    function getUserInput() {
+        var input = $('input[name=user-input]').val();
+        var albumOrArtist = $('select').val().toLowerCase();
+        return [input, albumOrArtist];
+    }
+
     function spicedifyRequest(url, query, type) {
-        console.log(type.toLowercase(), typeof type);
-        
         $.ajax({
             url: url,
             method: 'GET',
             data: {
                 query: query,
-                type: type.toLowercase(),
+                type: type,
             },
             success: function (response) {
                 response = response.artists || response.albums;
@@ -29,12 +32,19 @@
             },
         });
     }
+
     function updatePage(response) {
-        console.log(response);
-        
         var responseHtml = '';
+        if (response.items.length === 0) {
+            responseHtml =
+                '<span id="noResults">No results for ' + input[0] + '</span>';
+            container.html(responseHtml);
+        } else {
+            responseHtml +=
+                '<h1 id="responseHeader">Results for ' + input[0] + '</h1>';
+        }
+
         for (var i = 0; i < response.items.length; i++) {
-            console.log(response.items[i]);
 
             var url = response.items[i].external_urls.spotify;
             var name = response.items[i].name;
@@ -42,15 +52,16 @@
                 ? response.items[i].images[0].url
                 : 'https://www.svgrepo.com/show/55272/spotify.svg';
             responseHtml +=
-                '<div><a href="' +
+                '<div class="items"><a href="' +
                 url +
                 '" target="blank"><img src="' +
                 img +
-                '">' +
+                '"><span class="itemName">' +
                 name +
-                '</div>';
+                '</span></div>';
         }
-        $('#results-container').html(responseHtml);
+
+        container.html(responseHtml);
 
         var nextUrl =
             response.next &&
@@ -58,6 +69,22 @@
                 'api.spotify.com/v1/search',
                 'spicedify.herokuapp.com/spotify'
             );
-        console.log(nextUrl);
+        if (nextUrl) {
+            nextResultsBtn(nextUrl, response);
+        }
+    }
+    function nextResultsBtn(url, response) {
+        var btn =
+            '<button id="next">More</button><span id="howMany">Showing ' +
+            response.offset +
+            ' - ' +
+            (response.limit + response.offset) +
+            ' of ' +
+            response.total +
+            '</span>';
+        container.append(btn);
+        $('#results-container').on('click', 'button', function (e) {
+            spicedifyRequest(url, input[0], input[1]);
+        });
     }
 })();

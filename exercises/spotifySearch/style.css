@@ -2,6 +2,23 @@ body {
     background-color: black;
     color: silver;
 }
-img {
+.items {
+    padding: 1em;
+    
+}
+.items a {
+    color: silver;
+}
+.items span {
+    
+    padding: 1em;
+    font-size: 30px;
+    margin: auto;
+    max-width: 300px;
+   
+}
+.items img {
+ 
     height: 150px;
+    margin: auto;
 }
