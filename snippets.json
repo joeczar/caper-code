@@ -1,0 +1,56 @@
+{
+    "jQuery": {
+        "prefix": "jq",
+        "body": [
+            "<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>"
+        ],
+        "description": "jQuery CDN"
+    },
+    "javascript link": {
+        "prefix": "js",
+        "body": [
+            "<script src='script.js'></script>"
+        ],
+        "description": "javascript link"
+    },
+    
+    "handlebars CDN": {
+        "prefix": "hb",
+        "body": [
+            "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js\"></script>"
+        ],
+        "description": "Handlebars CDN script link"
+    },
+    
+    "Print to console": {
+        "prefix": "ll",
+        "body": [
+            "console.log(`$1:`, $1);"
+        ],
+        "description": "Log output to console"
+    },
+    "IIFE": {
+        "prefix": "iif",
+        "body": [
+            "(function() {",
+            "    $1",
+            "})();"
+        ],
+        "description": "Create an IIFE"
+    },
+    "Handlebars BoilerPLate": {
+        "prefix": "hbbp",
+        "body": [
+            "////////////// Handlebars Boilerplate DO NOT TOUCH!!! ///////////",
+            "Handlebars.templates = Handlebars.templates || {};",
+            "var templates = document.querySelectorAll(",
+            "    'script[type=\"text/x-handlebars-template\"]'",
+            ");",
+            "Array.prototype.slice.call(templates).forEach(function (script) {",
+            "    Handlebars.templates[script.id] = Handlebars.compile(script.innerHTML);",
+            "});",
+            "////////////// Handlebars Boilerplate DO NOT TOUCH!!! ///////////" 
+        ],
+        "description": "BoilerPlate for HandleBars"               
+    }
+}
