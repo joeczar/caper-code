@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+.authorCard {
+    display: flex;
+    flex-direction: row;
+}
+img {
+    height: 300px;
+    margin: auto;
+}
+.imgWrapper {
+    display: flex;
+    padding: 15px;
+    justify-items: center;
+}
