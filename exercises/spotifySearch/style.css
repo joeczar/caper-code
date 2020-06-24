@@ -5,12 +5,16 @@ body {
 .items {
     padding: 1em;
     
+    width: 100%;
 }
 .items a {
     color: silver;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-content: center;
 }
-.items span {
-    
+.items div {
     padding: 1em;
     font-size: 30px;
     margin: auto;
@@ -18,7 +22,11 @@ body {
    
 }
 .items img {
- 
+
     height: 150px;
     margin: auto;
+} 
+.imgWrapper {
+    justify-self: left;
+    margin-right: -20px;
 }
