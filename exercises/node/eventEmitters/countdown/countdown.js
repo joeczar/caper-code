@@ -9,8 +9,7 @@ module.exports = class Countdown extends events.EventEmitter {
         super();
         this.timeLeft = num;
 
-        this.on("secondElapsed", this.interval);
-        this.emit("secondElapsed", this.timeLeft);
+        this.interval();
     }
     interval() {
         const int = setInterval(() => {
@@ -18,8 +17,8 @@ module.exports = class Countdown extends events.EventEmitter {
                 clearInterval(int);
                 return 0;
             }
-            this.emit("secondElapsed", this.timeLeft);
-            this.timeLeft--;
+            this.emit("secondElapsed", this.timeLeft--);
+            // this.timeLeft--;
         }, 1000);
     }
 };
