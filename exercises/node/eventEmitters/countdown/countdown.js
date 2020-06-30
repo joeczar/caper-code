@@ -18,7 +18,6 @@ module.exports = class Countdown extends events.EventEmitter {
                 return 0;
             }
             this.emit("secondElapsed", this.timeLeft--);
-            // this.timeLeft--;
         }, 1000);
     }
 };
