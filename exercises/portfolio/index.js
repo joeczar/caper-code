@@ -1,40 +1,38 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const {linkList} = require('./linkList')
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+const { linkList } = require("./linkList");
 
 const fileTypesArr = [
-    ['.html', 'text/html'],
-    ['.css', 'text/css'],
-    ['.js', 'text/javascript'],
-    ['.json', 'application/json'],
-    ['.gif', 'image/gif'],
-    ['.jpg', 'image/jpeg'],
-    ['.png', 'image/png'],
-    ['.svg', 'image/svg+xml'],
-    ['.ttf', 'application/x-font-ttf'],
+    [".html", "text/html"],
+    [".css", "text/css"],
+    [".js", "text/javascript"],
+    [".json", "application/json"],
+    [".gif", "image/gif"],
+    [".jpg", "image/jpeg"],
+    [".png", "image/png"],
+    [".svg", "image/svg+xml"],
+    [".ttf", "application/x-font-ttf"],
 ];
-const fileTypesMap = new Map(fileTypesArr)
+const fileTypesMap = new Map(fileTypesArr);
 
 const server = http.createServer((req, res) => {
-    req.on('error', (err) => {
-        console.log('error in response', err);
+    req.on("error", (err) => {
+        console.log("error in response", err);
     });
 
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
         const myPath = path.normalize(__dirname + req.url);
-        
-        if (req.url === '/') {
+
+        if (req.url === "/") {
             res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/html');
-            
-           
-            
+            res.setHeader("Content-Type", "text/html");
+
             res.end(linkList());
         }
-        if (!myPath.startsWith(__dirname + '/projects')) {
+        if (!myPath.startsWith(__dirname + "/projects")) {
             //on Windows use '\\projects' instead of '/projects'
-            res.statusCode = 403;            
+            res.statusCode = 403;
             return res.end(`<h1>Verboten!</h1>`);
         }
 
@@ -42,19 +40,18 @@ const server = http.createServer((req, res) => {
             if (err) {
                 console.log(err);
                 res.statusCode = 404;
-                return res.end(fourOhFour);
+                res.end(`<h1>404 Nuthin here!</h1>`);
             }
             if (stat.isFile()) {
                 stream(myPath, res);
             } else {
-                if (req.url.endsWith('/')) {
-                    stream(myPath + 'index.html', res);
+                if (req.url.endsWith("/")) {
+                    stream(myPath + "index.html", res);
                 } else {
                     res.statusCode = 302;
-                    res.setHeader('Location', req.url + '/')
+                    res.setHeader("Location", req.url + "/");
                     res.end();
                 }
-                
             }
         });
     } else {
@@ -66,28 +63,28 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(8080, () => {
-    console.log('Server is listening...');
+    console.log("Server is listening...");
 });
 
 function stream(path, res) {
     const stream = fs.createReadStream(path);
-    const [ , fileType ] = path.split('.')
-    if (typeof fileTypesMap.get(`.${fileType}`) == 'undefined') {
+    const [, fileType] = path.split(".");
+    if (typeof fileTypesMap.get(`.${fileType}`) == "undefined") {
         res.statusCode = 404;
         res.end(`
             <h1>405 Pech Gehabt!</h1>
         `);
     }
-    res.setHeader('Content-Type', fileTypesMap.get(`.${fileType}`));
-    stream.on('open', () => {
-        stream.pipe(res);
-    })
-    .on('error', (err) => {
-        res.statusCode = 500;
-        res.end(err);
-    })
-    .on('close', () => {
-        res.end();
-    })
-
+    res.setHeader("Content-Type", fileTypesMap.get(`.${fileType}`));
+    stream
+        .on("open", () => {
+            stream.pipe(res);
+        })
+        .on("error", (err) => {
+            res.statusCode = 500;
+            res.end(err);
+        })
+        .on("close", () => {
+            res.end();
+        });
 }
