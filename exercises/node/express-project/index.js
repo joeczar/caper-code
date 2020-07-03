@@ -1,14 +1,11 @@
-const express = require("express");
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
 const app = express();
-const cookieParser = require("cookie-parser");
+
+const port = 8080;
 
 app.use(cookieParser());
-
-app.use((req, res, next) => {
-    console.log(`Hit ${req.method} on ${req.url} `);
-
-    next();
-});
 
 app.use(
     express.urlencoded({
@@ -16,7 +13,12 @@ app.use(
     })
 );
 
-app.get("/cookie", (req, res) => {
+app.use((req, res, next) => {
+    console.log(`Hit ${req.method} on ${req.url} `);
+    next();
+});
+
+app.get('/cookie', (req, res) => {
     console.log(req.cookies);
 
     res.send(`
@@ -28,86 +30,32 @@ app.get("/cookie", (req, res) => {
     `);
 });
 
-app.post("/cookie", (req, res) => {
-    res.cookie("approved", req.body.cookie);
+app.post('/cookie', (req, res) => {
+    res.cookie('approved', req.body.cookie);
+    console.log('cookies post', req.cookies);
     res.redirect(req.cookies.url);
 });
-app.use((req, res, next) => {
-    if (req.url === "/favicon.ico" || req.url === "/cookie") {
-        next();
-    } else {
-        res.cookie("url", req.url);
-        console.log(req.cookies);
-        next();
-    }
-});
-app.use((req, res, next) => {
-    console.log("cookie?", req.cookies.approved);
 
-    if (req.cookies.approved !== "on") {
-        console.log("No cookie!");
-        return res.redirect("/cookie");
+// check for approved cookie, set url cookie if no approved redirect to cookie
+app.use((req, res, next) => {
+    const cookie = req.cookies.approved === 'on';
+    if (!cookie && req.url !== '/favicon.ico') {
+        res.cookie('url', req.url);
+        res.redirect('/cookie');
     } else {
-        console.log("redirect:", req.cookies.url);
         next();
-        return res.redirect(req.cookies.url);
     }
-});
-app.get("/", (req, res) => {
+})
+
+app.get('/', (req, res) => {
     console.log(req.cookies);
     res.send(`
     <!doctype html><title>Hello Express!</title><h1>Hello Express!</h1>
+    `);
+});
+app.use(express.static(__dirname + '/static'));
+
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}...`);
     
-    `);
-});
-
-app.use(express.static(__dirname + "/static"));
-
-app.get("/about", (req, res) => {
-    res.cookie("hasAccess", true);
-    res.sendFile(__dirname + "/about.html");
-});
-
-app.get("/about/:name", (req, res) => {
-    res.send(`<h3> Hi ${req.params.name} you are some where ${req.url}</h3>`);
-    console.log(req.params);
-});
-
-app.get("/hello-world", (req, res) => {
-    res.send(`
-        <!doctype html><title>Hello Express!</title><h1>Hello World!</h1>
-    `);
-});
-
-app.get("/add-cute-animals", (req, res) => {
-    res.send(`
-        <form method='POST'>
-            <input type='text' name='animal' placeholder='animal' autocomplete='off'>
-            <input type='text' name='score' placeholder='score'>
-            <button>submit</button>
-        </form>
-    `);
-});
-
-app.get("/secrets", (req, res) => {
-    console.log(req.cookies);
-
-    if (req.cookies.hasAccess) {
-        res.send(`
-            <h1>Welcome to the Secret Society</h1>
-        `);
-    } else {
-        res.redirect("/");
-    }
-});
-
-app.post("/add-cute-animals", (req, res) => {
-    console.log("post request", req.body);
-    res.send(
-        `<h1>You rated a ${req.body.animal} with ${req.body.score} points`
-    );
-});
-
-app.listen(8080, () => {
-    console.log("Express is up and running...");
-});
+})
