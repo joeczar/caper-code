@@ -1,8 +1,12 @@
-
-    <h1>This is the Home template</h1>
-    <h2>Happy Friday {{cohort}}</h2>
-    <ul>
-        {{#devils}}
-        <li>{{name}}</li>
-        {{/devils}}
+    <h1>Joe's Projects</h1>
+    
+    <ul id="project-list">
+        {{#projects}}
+        
+        <li><a href={{directory}}>
+            <img class="screenshot" src={{img.path}} alt={{img.name}}>
+            <span class="project-name">{{name}}</span>
+            </a>
+        </li>
+        {{/projects}}
     </ul>

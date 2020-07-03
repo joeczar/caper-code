@@ -18,6 +18,10 @@ const fileTypesMap = new Map(fileTypesArr);
 
 const server = http.createServer((req, res) => {
     req.on("error", (err) => {
+        console.log("error in request", err);
+    });
+
+    res.on("error", (err) => {
         console.log("error in response", err);
     });
 
@@ -33,7 +37,7 @@ const server = http.createServer((req, res) => {
         if (!myPath.startsWith(__dirname + "/projects")) {
             //on Windows use '\\projects' instead of '/projects'
             res.statusCode = 403;
-            return res.end(`<h1>Verboten!</h1>`);
+            res.end(`<h1>Verboten!</h1>`);
         }
 
         fs.stat(myPath, (err, stat) => {

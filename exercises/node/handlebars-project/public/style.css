@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: aquamarine;
+    width: 100vw;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    height: 100%;
+    margin: auto;
+    flex: 1;
+}
+
+#project-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#project-list ul {
+    margin-left: 0px;
+}
+#project-list li {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.project-name {
+    display: block;
+}
+.screenshot {
+    height: 200px;
+}
