@@ -279,10 +279,17 @@ body {
     width: 400px;
     height: 225px;
     justify-self: right;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: medium;
+    color: white;
 }
 #closeMenu {
     margin: 10px auto;
 }
 .upAndAway {
     top: -330px;
+}
+#clear {
+    font-size: small;
+    height: 30px;
 }

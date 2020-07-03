@@ -11,12 +11,16 @@
     var dropDown = $("#dropdown");
     var menuBtn = $("#menu");
     var closeMenuBtn = $("#closeMenu");
+    var saveBtn = $("#save");
+    var clearBtn = $("#clear");
     var game;
     var finished;
 
     start.on("click", startGame);
     menuBtn.on("click", menuDropdown);
     closeMenuBtn.on("click", closeMenu);
+    saveBtn.on("click", saveGame);
+    clearBtn.on("click", clearGames);
 
     function drop(e) {
         var col = $(e.currentTarget);
@@ -303,22 +307,22 @@
 
     // game state
     function ConnectFour(player1Name, player2name) {
-        (this.player1 = new Player(player1Name, 1)),
-            (this.player2 = new Player(player2name, 2)),
-            (this.board = new Board()),
-            (this.newBoard = function () {
-                this.board = new Board();
-            }),
-            (this.history = []),
-            (this.playedGames = []),
-            (this.play = function (player, position) {
-                var oldBoard = JSON.stringify(this.board);
-                this.history.push(oldBoard);
-                var coin = player === "player1" ? "X" : "O";
-                this.board[position[1]][position[0]] = coin;
-                this.getPLayerName();
-                this.printCurrentBoard();
-            });
+        this.player1 = new Player(player1Name, 1);
+        this.player2 = new Player(player2name, 2);
+        this.board = new Board();
+        this.newBoard = function () {
+            this.board = new Board();
+        };
+        this.history = [];
+        this.playedGames = [];
+        this.play = function (player, position) {
+            var oldBoard = JSON.stringify(this.board);
+            this.history.push(oldBoard);
+            var coin = player === "player1" ? "X" : "O";
+            this.board[position[1]][position[0]] = coin;
+            this.getPLayerName();
+            this.printCurrentBoard();
+        };
         this.getPLayerName = function () {
             var num = currentPlayer.charAt(currentPlayer.length - 1);
             var player = num === "1" ? this.player1.name : this.player2.name;
@@ -347,25 +351,32 @@
             (this.name = name), (this.number = number), (this.score = 0);
         }
     }
+
     function menuDropdown() {
         dropDown.removeClass("upAndAway");
+        loadGames();
     }
     function closeMenu() {
-        console.log("close");
-
         dropDown.addClass("upAndAway");
     }
-    this.saveGame = function () {
+    function loadGames() {
+        var games = getLocalStorage();
+        console.log(games);
+    }
+    function saveGame() {
         // check local storage
-        var saveGame = new savedGame(game);
+        var save = new savedGame(game);
         var games = getLocalStorage();
         var saveObj = {
             name: `${game.player1.name}-${game.player2.name}`,
-            game: saveGame,
+            game: save,
+            date: new Date().toLocaleString(),
         };
         games.push(saveObj);
-        localStorage.setItem("connectFour", JSON.stringify(games));
-    };
+        var gameJson = JSON.stringify(games);
+
+        localStorage.setItem("connectFour", gameJson);
+    }
     function savedGame(game) {
         this.player1 = game.player1;
         this.player2 = game.player2;
@@ -379,5 +390,8 @@
         var savedGames = localStorage.getItem("connectFour");
         var parsedGames = JSON.parse(savedGames);
         return parsedGames;
+    }
+    function clearGames() {
+        localStorage.clear();
     }
 })();
