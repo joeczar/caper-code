@@ -1,9 +1,27 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const basicAuth = require('basic-auth');
 
 const app = express();
 
 const port = 8080;
+
+const auth = (req, res, next) => {
+    console.log('in auth');
+    
+    const creds = basicAuth(req);
+    if(!creds || creds.name != 'IanMalcom' || creds.pass != 'ChaosTheory') {
+        console.log('no creds');
+        
+        res.setHeader(
+            'WWW-Authenticate',
+            'Basic realm="Enter your credentials to see this stuff."'
+        );
+        res.sendStatus(401);
+    } else {
+        next();
+    }
+}
 
 app.use(cookieParser());
 
@@ -53,7 +71,10 @@ app.get('/', (req, res) => {
     <!doctype html><title>Hello Express!</title><h1>Hello Express!</h1>
     `);
 });
+app.use('/connect-four', auth);
 app.use(express.static(__dirname + '/static'));
+
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}...`);
