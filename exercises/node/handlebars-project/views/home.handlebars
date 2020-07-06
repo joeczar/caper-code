@@ -1,12 +1,10 @@
     <h1>Joe's Projects</h1>
     
-    <ul id="project-list">
-        {{#projects}}
+    <div id="project-list">
         
-        <li><a href={{directory}}>
-            <img class="screenshot" src={{img.path}} alt={{img.name}}>
-            <span class="project-name">{{name}}</span>
-            </a>
-        </li>
-        {{/projects}}
-    </ul>
+        
+
+            {{>projectLinks main=true}}
+        
+    
+    </div>

@@ -1,0 +1,13 @@
+<ul>
+{{#projects}}
+
+<li {{#is ../title name}} class='activeLink'{{/is}}>
+    <a href="/projects/{{directory}}">
+    <span class="project-name">{{name}}</span>
+        {{#if ../main}}
+        <img src='/{{img.path}}' alt='{{img.name}}' class="screenshot"/>
+        {{/if}}
+    </a>
+</li>
+{{/projects}}   
+</ul>

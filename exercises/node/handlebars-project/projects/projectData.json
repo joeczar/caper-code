@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Connect Four",
+        "directory": "connect-four",
+        "img": {
+            "name": "Connect Four Screenshot",
+            "path": "connect-four/connect-four-screenshot.png"
+        },
+        "description": "Most of my memories of playing Connect Four are from playing at my Grandparents house as a child. They had a yellow version I remember very clearly. I decided to got for a bit of a retro feel and spent some time looking for the right fonts and colors. I worked out a console view as well, so make sure to open up dev tools and have a look. You can save and load your game to local storage to keep those winning streaks going."
+    },
+    {
+        "name": "Kitty Carousel",
+        "directory": "kitty-carousel",
+        "img": {
+            "name": "Kitty Carousel Screenshot",
+            "path": "kitty-carousel/kitty-carousel-screenshot.png"
+        },
+        "description": "I wanted to give my kitties a nicer frame than what we did in class. I did this by adding a second CSS file and styling over the original."
+    },
+    {
+        "name": "Spotify Search",
+        "directory": "spotify-search",
+        "img": {
+            "name": "Spotify Search Screenshot",
+            "path": "spotify-search/spotify-search-screenshot.png"
+        },
+        "description": "This needs some more work on styling."
+    },
+    {
+        "name": "Ticker",
+        "directory": "ticker",
+        "img": {
+            "name": "Ticker Screenshot",
+            "path": "ticker/ticker-screenshot.png"
+        },
+        "description": "I was heavily inspired by the HTMHell website. All of the links in the tow row are from there. Go check it out."
+    }
+]

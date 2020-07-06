@@ -25,15 +25,57 @@ main {
 }
 #project-list ul {
     margin-left: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 #project-list li {
     margin: 10px;
     display: flex;
     flex-direction: column;
 }
-.project-name {
+#project-list a {
+    display: flex;
+    flex-direction: column;
+}
+#project-list .project-name {
     display: block;
+    text-align: center;
+    margin: auto;
+    font-size: x-large;
 }
 .screenshot {
     height: 200px;
+}
+.descPageWrap {
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 100vw;
+    margin-left: 0px;
+}
+.descriptionWrapper {
+    padding: 0px 2em;
+}
+.descriptionWrapper,
+.descLinks {
+    margin: auto;
+}
+.descLinks {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    margin-top: 0px;
+}
+.descLinks ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.descriptionImg {
+    height: 500px !important;
+}
+.activeLink {
+    border: 2px solid red;
 }

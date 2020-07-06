@@ -1,0 +1,15 @@
+<div class="descPageWrap">
+<div class="descriptionWrapper">
+    <h1>{{project.name}}</h1>
+    <img src='/{{project.img.path}}' alt='{{project.img.name}}' class="descriptionImg"/>
+    <h2>Description</h2>
+    <div class="launch">
+        <span>Go to</span><a href='/{{project.directory}}'> {{project.name}}</a>
+    </div>
+    <p>{{project.description}}</p>
+</div>
+<aside class="descLinks">
+    <h3>Projects</h3>
+    {{>projectLinks main=false}}
+</aside>
+</div>
