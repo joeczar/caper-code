@@ -18,20 +18,14 @@ app.get('/data.json', (req, res) => {
             // with the token
             getTweets(token, (err, tweets) => {
                 if (err) {
-                    console.log('error getting tweets:', err);
+                    console.log('error getting tweets:', err); 
                     res.sendStatus(500);
                 } else {
                     // console.log('recieved tweets:', tweets);
                     // 3. Filter those tweets, that we got from step 2 and make them in the
                     //"shape" that our client side is expecting that response to be
 
-                    const filteredTweets = filterTweets(tweets, (err, res) => {
-                        if (err) {
-                            console.log('filter erroe', err);
-                        } else {
-                            console.log(res);
-                        }
-                    });
+                    const filteredTweets = filterTweets(tweets);
 
                     // 4. we want to send back the filtered tweets as json
                     res.json(filteredTweets);

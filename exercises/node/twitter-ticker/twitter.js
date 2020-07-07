@@ -18,9 +18,9 @@ module.exports.getToken = function getToken(callback) {
         },
     };
     function cb(response) {
-        if (response.statuscode != 200) {
+        if (response.statusCode != 200) {
             // something went wrong
-            callback(response.statuscode);
+            callback(response.statusCode);
         }
         let body = '';
         response.on('data', (chunk) => {
@@ -56,9 +56,9 @@ module.exports.getTweets = function getTweets(token, callback) {
         },
     };
     function cb(res) {
-        if (res.statuscode != 200) {
+        if (res.statusCode != 200) {
             // something went wrong
-            callback(res.statuscode);
+            callback(res.statusCode);
         }
         let body = '';
         res.on('data', (chunk) => {
@@ -78,9 +78,39 @@ module.exports.getTweets = function getTweets(token, callback) {
     req.end('grant_type=client_credentials');
 };
 
-module.exports.filterTweets = function filterTweets(tweets, callback) {
+module.exports.filterTweets = function filterTweets(tweets) {
     // cleans up the twitter api response
     // console.log(Array.isArray(tweets));
-    const first = tweets[0];
-    callback(null, first);
+    // tweets.forEach(tweet => console.log( tweet.entities.urls))
+    
+    const filtered = tweets.filter(
+        (tweet) =>
+            tweet.entities.urls.length < 2 && tweet.entities.urls.length > 0
+    ).map(tweet => {
+        
+        const urls = tweet.entities.urls[0].url;
+        const expandedUrl = tweet.entities.urls[0].expanded_url
+        const media = tweet.entities.media;
+        let text;
+        if (media){
+            media.forEach(
+                (elem) => (text = tweet.full_text.replace(elem.url, ''))
+            );
+                 
+        } else {
+            text = tweet.full_text;
+           
+        }
+        
+        const cleaned = text.replace(urls, '');
+        const noEscapes = cleaned.replace(/\n/g, '').replace(/\s{2,10}/g, ' ');
+        const result = {
+            link: expandedUrl,
+            headline: noEscapes,
+        }
+
+        return result;
+    })
+    return filtered
+    
 };
