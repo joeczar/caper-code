@@ -71,9 +71,20 @@
         // Bottom Ticker
         var headlines = $('#bottomHeadlines');
         var links = headlines.find('A');
-
+        var step;
         var right = -headlines.outerWidth();
         var lastLink = links.length - 1;
+        headlines.on('mouseover', function (e) {
+            $(e.target).css({ color: 'red' });
+            cancelAnimationFrame(step);
+        });
+        headlines.on('mouseout', function (e) {
+            $(e.target).css({
+                textDecoration: 'none',
+                color: 'white',
+            });
+            window.requestAnimationFrame(moveHeadlines);
+        });
 
         function moveHeadlines() {
             right++;
