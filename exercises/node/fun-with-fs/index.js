@@ -1,14 +1,32 @@
-const fs = require("fs");
-
-logSizes(__dirname);
+const fs = require('fs');
+const { readdir, stat } = require('fs').promises;
+// logSizes(__dirname);
+logSizesPromise(__dirname);
 const obj = mapSizes(`${__dirname}/files`);
 const filesJSON = JSON.stringify(obj, null, 4);
 fs.writeFileSync(`files.json`, filesJSON);
 
+function logSizesPromise(path) {
+    readdir(path, { withFileTypes: true })
+        .then((files) => {
+            files.forEach((file) => {
+                const newPath = `${path}/${file.name}`;
+                stat(newPath).then((stat) => {
+                    if (stat.isDirectory()) {
+                        logSizesPromise(newPath);
+                    } else {
+                        console.log(`${newPath}: ${stat.size}`);
+                    }
+                });
+            });
+        })
+        .catch((err) => console.log(err));
+}
+
 function logSizes(path) {
     fs.readdir(path, { withFileTypes: true }, (err, files) => {
         if (err) {
-            console.log("readdir err", err);
+            console.log('readdir err', err);
         }
 
         // Get path and append filename
@@ -19,7 +37,7 @@ function logSizes(path) {
 
             fs.stat(filePathName, (err, stat) => {
                 if (err) {
-                    console.log("stat err", err);
+                    console.log('stat err', err);
                 }
                 if (stat.isDirectory()) {
                     logSizes(filePathName);
