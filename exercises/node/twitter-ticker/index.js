@@ -16,6 +16,7 @@ app.get('/data.json', (req, res) => {
         res.json(data);
     });
 });
+
 app.get('/blinks.json', (req, res) => {
     twitterSearch(getTweetsByHashtag, hashTags).then((data) => {
         res.json(data);
